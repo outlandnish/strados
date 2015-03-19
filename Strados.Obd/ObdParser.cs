@@ -9,10 +9,10 @@ using System.Reflection;
 
 namespace Strados.Obd
 {
-    public class Parser
+    public class ObdParser
     {
-        private static Parser parser = new Parser();
-        public static void Parse(string hexData)
+        private static ObdParser parser = new ObdParser();
+        public static object Parse(string hexData)
         {
             var normalized = normalize(hexData);
 
@@ -31,6 +31,8 @@ namespace Strados.Obd
             var methods = parser.GetType().GetRuntimeMethods();
             var parseFunction = methods.Where(m => m.Name == pid.StringValue()).FirstOrDefault();
             var result = parseFunction.Invoke(parser, new object[] { hexData });
+
+            return result;
         }
 
         private static int parseMode(string data)

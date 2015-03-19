@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <title>Strados OBD Library</title>
     <authors>Strados</authors>
     <owners>Strados</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/nsamala/strados</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Transform OBD2 data from your car into human readable data</description>
-    <releaseNotes>Initial release of Strados</releaseNotes>
+    <releaseNotes>Actually returns data from Parse function</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>
     </tags>
