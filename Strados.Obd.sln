@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22310.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strados.Obd", "Strados.Obd\Strados.Obd.csproj", "{0B620773-3293-436A-B7E9-A394A52AB92D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Strados.Vehicle", "Strados.Vehicle\Strados.Vehicle.csproj", "{CBA42651-3146-45B4-A436-1AE4039407B1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0B620773-3293-436A-B7E9-A394A52AB92D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B620773-3293-436A-B7E9-A394A52AB92D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B620773-3293-436A-B7E9-A394A52AB92D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B620773-3293-436A-B7E9-A394A52AB92D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBA42651-3146-45B4-A436-1AE4039407B1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA42651-3146-45B4-A436-1AE4039407B1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA42651-3146-45B4-A436-1AE4039407B1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA42651-3146-45B4-A436-1AE4039407B1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
