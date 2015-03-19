@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Strados.Obd.Extensions;
 using Strados.Obd.Specification;
-using Strados.Obd.Extensions;
+using System;
+using System.Linq;
 using System.Reflection;
 
 namespace Strados.Obd
