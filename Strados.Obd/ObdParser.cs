@@ -44,7 +44,7 @@ namespace Strados.Obd
                 parseFunction = methods.FirstOrDefault(m => m.Name == "MonitorStatus");
             else if (pid.ToString().Contains("CatalystTemperature"))
                 parseFunction = methods.FirstOrDefault(m => m.Name == "CatalystTemperature");
-            else if (pid.ToString().Contains("Temperature"))
+            else if (pid.ToString().Contains("Temp"))
                 parseFunction = methods.FirstOrDefault(m => m.Name == "Temperature");
             else if (pid.ToString().Contains("TermFuelPercentTrim"))
                 parseFunction = methods.FirstOrDefault(m => m.Name == "FuelTrim");
@@ -178,17 +178,17 @@ namespace Strados.Obd
 
         private static double CalcEngineLoad(string[] data)
         {
-            return (double)Convert.ToInt32(data[0], 16) * 100.0 / 255;
+            return Percentage(data);
         }
 
-        private static double Temperature(string[] data)
+        private static int Temperature(string[] data)
         {
-            return (double)Convert.ToInt32(data[0], 16) - 40.0;
+            return Convert.ToInt32(data[0], 16) - 40;
         }
 
         private static double FuelTrim(string[] data)
         {
-            return (double)Convert.ToInt32(data[0], 16) * 100 / 128;
+            return Math.Round(((double)Convert.ToInt32(data[0], 16) - 128.0) * 100.0 / 128.0, 2);
         }
 
         private static int FuelPressure(string[] data)
@@ -213,7 +213,7 @@ namespace Strados.Obd
 
         private static double TimingAdvance(string[] data)
         {
-            return ((double)Convert.ToInt32(data[0], 16) - 128.0) / 2;
+            return ((double)Convert.ToInt32(data[0], 16) - 128.0) / 2.0;
         }
 
         private static double MAFRate(string[] data)
