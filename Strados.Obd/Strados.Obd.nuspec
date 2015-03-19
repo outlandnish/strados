@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>0.0.1</version>
+    <title>Strados OBD Library</title>
+    <authors>Strados</authors>
+    <owners>Strados</owners>
+    <licenseUrl>https://raw.githubusercontent.com/nsamala/strados/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/nsamala/strados</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Transform OBD2 data from your car into human readable data</description>
+    <releaseNotes>Initial release of Strados</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>
+    </tags>
+  </metadata>
+</package>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>0.0.2</version>
+    <title>Strados Vehicle Library</title>
+    <authors>Strados</authors>
+    <owners>Strados</owners>
+    <licenseUrl>https://raw.githubusercontent.com/nsamala/strados/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/nsamala/strados</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Car service interaction layer for Strados</description>
+    <releaseNotes>Initial relase</releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>
+    </tags>
+  </metadata>
+</package>
