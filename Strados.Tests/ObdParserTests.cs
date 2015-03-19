@@ -19,7 +19,7 @@ namespace Strados.Tests
         public void TestRPM()
         {
             string min = "410C0000";
-            string max = "410CFFFE";
+            string max = "410CFFFF";
 
             var minResult = ObdParser.Parse(min);
             var maxResult = ObdParser.Parse(max);
