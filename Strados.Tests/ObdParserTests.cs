@@ -1,4 +1,6 @@
 ﻿using Strados.Obd;
+using Strados.Obd.Specification;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Strados.Tests
@@ -13,6 +15,44 @@ namespace Strados.Tests
 
             Assert.Equal(1, result.Mode);
             Assert.Equal(0, result.Command);
+
+            Dictionary<ObdPid, bool> supported = new Dictionary<ObdPid, bool>()
+            {
+                { ObdPid.MonitorStatus,                     true },
+                { ObdPid.FreezeDTC,                         false },
+                { ObdPid.FuelSystemStatus,                  true },
+                { ObdPid.CalcEngineLoad,                    true },
+                { ObdPid.EngineCoolantTemp,                 true },
+                { ObdPid.ShortTermFuelPercentTrimBankOne,   true },
+                { ObdPid.LongTermFuelPercentTrimBankOne,    true },
+                { ObdPid.ShortTermFuelPercentTrimBankTwo,   false },
+                { ObdPid.LongTermFuelPercentTrimBankTwo,    false },
+                { ObdPid.FuelPressure,                      false },
+                { ObdPid.IntakeManifoldAbsolutePressure,    false },
+                { ObdPid.EngineRPM,                         true },
+                { ObdPid.VehicleSpeed,                      true },
+                { ObdPid.TimingAdvance,                     true },
+                { ObdPid.IntakeAirTemperature,              true },
+                { ObdPid.MAFRate,                           true },
+                { ObdPid.ThrottlePosition,                  true },
+                { ObdPid.CommandedSecondaryAirStatus,       false },
+                { ObdPid.OxygenSensorsPresent,              true },
+                { ObdPid.Bank1_Sensor1,                     false },
+                { ObdPid.Bank1_Sensor2,                     true },
+                { ObdPid.Bank1_Sensor3,                     false },
+                { ObdPid.Bank1_Sensor4,                     false },
+                { ObdPid.Bank2_Sensor1,                     false },
+                { ObdPid.Bank2_Sensor2,                     false },
+                { ObdPid.Bank2_Sensor3,                     false },
+                { ObdPid.Bank2_Sensor4,                     false },
+                { ObdPid.OBDStandard,                       true },
+                { ObdPid.OxygenSensorsPresent_1,            false },
+                { ObdPid.AuxilaryInputStatus,               false },
+                { ObdPid.RunTimeSinceEngineStart,           true },
+                { ObdPid.PidSupport_21_40,                  true }
+            };
+
+            Assert.Equal(supported, result.Value);
         }
 
         [Fact]
@@ -24,7 +64,19 @@ namespace Strados.Tests
         [Fact]
         public void TestFuelSystemStatus()
         {
+            string first = "41031F";
 
+            var firstExpected = new FuelSystemStatus(1);
+            var secondExpected = new FuelSystemStatus(15);
+            var result = ObdParser.Parse(first).Value as List<FuelSystemStatus>;
+
+            Assert.Equal(2, result.Count);
+
+            Assert.Equal(firstExpected.Open, result[0].Open);
+            Assert.Equal(firstExpected.Status,  result[0].Status);
+
+            Assert.Equal(secondExpected.Open, result[1].Open);
+            Assert.Equal(secondExpected.Status, result[1].Status);
         }
 
         [Fact]

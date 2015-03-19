@@ -196,7 +196,7 @@ namespace Strados.Obd
             return Convert.ToInt32(data[0], 16) * 3;
         }
 
-        private static double IntakeManifoldAbsolutePressure(string[] data)
+        private static int IntakeManifoldAbsolutePressure(string[] data)
         {
             return Convert.ToInt32(data[0], 16);
         }
