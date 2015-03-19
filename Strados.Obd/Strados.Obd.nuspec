@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <version>0.0.8</version>
+    <version>0.0.9</version>
     <title>Strados OBD Library</title>
     <authors>Strados</authors>
     <owners>Strados</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/nsamala/strados</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Transform OBD2 data from your car into human readable data</description>
-    <releaseNotes>Fixed IntegerRange parsing function</releaseNotes>
+    <releaseNotes>Fixed round off errors + temperature function redirection</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>obd2 strados automotive CAN iso car</tags>
   </metadata>
