@@ -1,5 +1,6 @@
 ﻿using Strados.Obd;
 using Strados.Obd.Specification;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -169,8 +170,129 @@ namespace Strados.Tests
             var minResult = ObdParser.Parse(min);
             var maxResult = ObdParser.Parse(max);
 
-            Assert.Equal(0, (int)minResult.Value);
-            Assert.Equal(255, (int)maxResult.Value);
+            Assert.Equal(0, minResult.Value);
+            Assert.Equal(255, maxResult.Value);
+        }
+
+        [Fact]
+        public void TestTimingAdvance()
+        {
+            string min = "410E00";
+            string max = "410EFF";
+
+            var minResult = ObdParser.Parse(min);
+            var maxResult = ObdParser.Parse(max);
+
+            Assert.Equal(-64.0, minResult.Value);
+            Assert.Equal(63.5, maxResult.Value);
+        }
+
+        [Fact]
+        public void TestIntakeAirTemperature()
+        {
+            string min = "410F00";
+            string max = "410FFF";
+
+            var minResult = ObdParser.Parse(min);
+            var maxResult = ObdParser.Parse(max);
+
+            Assert.Equal(-40, minResult.Value);
+            Assert.Equal(215, maxResult.Value);
+        }
+
+        [Fact]
+        public void TestMAFRate()
+        {
+            string min = "41100000";
+            string max = "4110FFFF";
+
+            var minResult = ObdParser.Parse(min);
+            var maxResult = ObdParser.Parse(max);
+
+            Assert.Equal(0.0, minResult.Value);
+            Assert.Equal(655.35, maxResult.Value);
+        }
+
+        [Fact]
+        public void TestThrottlePosition()
+        {
+            string min = "411100";
+            string max = "4111FF";
+
+            var minResult = ObdParser.Parse(min);
+            var maxResult = ObdParser.Parse(max);
+
+            Assert.Equal(0.0, minResult.Value);
+            Assert.Equal(100.0, maxResult.Value);
+        }
+
+        [Fact]
+        public void TestCommandedSecondaryAirStatus()
+        {
+            string hex = "411210";
+
+            var result = ObdParser.Parse(hex);
+
+            Assert.Equal(SecondaryAirStatus.Upstream, result.Value);
+        }
+
+        [Fact]
+        public void TestOxygenSensorsPresent()
+        {
+            string hex = "411310";
+
+            var expected = new bool[] { false, false, false, true, false, false, false, false };
+            var result = ObdParser.Parse(hex);
+
+            Assert.Equal(expected, result.Value);
+        }
+
+        [Fact]
+        public void TestOxySensorVoltageTrim()
+        {
+            string min = "41140000";
+            string max = "4114FFFF";
+
+            var minResult = ObdParser.Parse(min).Value as double[];
+            var maxResult = ObdParser.Parse(max).Value as double[];
+
+            Assert.Equal(2, minResult.Length);
+            Assert.Equal(2, maxResult.Length);
+
+            Assert.Equal(0.0, minResult[0]);
+            Assert.Equal(-100.0, minResult[1]);
+
+            Assert.Equal(1.275, maxResult[0]);
+            Assert.Equal(99.2, maxResult[1]);
+        }
+
+        [Fact]
+        public void TestObdStandard()
+        {
+            var hex = "411C01";
+
+            var result = ObdParser.Parse(hex).Value;
+
+            Assert.Equal(ObdStandard.OBD2_CARB, result);
+        }
+
+        [Fact]
+        public void TestAuxilaryInputStatus()
+        {
+
+        }
+
+        [Fact]
+        public void TestRunTimeSinceEngineStart()
+        {
+            var min = "411F0000";
+            var max = "411FFFFF";
+
+            var minResult = ObdParser.Parse(min).Value;
+            var maxResult = ObdParser.Parse(max).Value;
+
+            Assert.Equal(TimeSpan.FromSeconds(0), minResult);
+            Assert.Equal(TimeSpan.FromSeconds(65535), maxResult);
         }
     }
 }

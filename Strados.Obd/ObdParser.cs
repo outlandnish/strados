@@ -48,6 +48,8 @@ namespace Strados.Obd
                 parseFunction = methods.FirstOrDefault(m => m.Name == "Temperature");
             else if (pid.ToString().Contains("TermFuelPercentTrim"))
                 parseFunction = methods.FirstOrDefault(m => m.Name == "FuelTrim");
+            else if (pid.ToString().Contains("Bank") && pid.ToString().Contains("Sensor"))
+                parseFunction = methods.FirstOrDefault(m => m.Name == "BankSensorVoltageTrim");
             else if (pid.ToString().Contains("SecondaryO2Sensor"))
                 parseFunction = methods.FirstOrDefault(m => m.Name == "SecondaryBank");
             else if (pid.ToString().Contains("ThrottlePosition") || pid.ToString().Contains("AbsolutePedal"))
@@ -226,9 +228,10 @@ namespace Strados.Obd
             return Percentage(data);
         }
 
-        private static string CommandedSecondaryAirStatus(string[] data)
+        private static SecondaryAirStatus CommandedSecondaryAirStatus(string[] data)
         {
-            return ((SecondaryAirStatus)Convert.ToInt32(data[0], 16)).ToString();
+            var binary = HexHelper.HexStringToBinary(data[0]);
+            return ((SecondaryAirStatus)Convert.ToInt32(binary.Substring(0, 4), 2));
         }
 
         private bool[] OxygenSensorsPresent(string[] data)
@@ -243,19 +246,19 @@ namespace Strados.Obd
             return sensors;
         }
 
-        private static object BankSensorVoltage(string[] data)
+        private static double[] BankSensorVoltageTrim(string[] data)
         {
-            return new
+            return new double[]
             {
-                Voltage = (double)Convert.ToInt32(data[0], 16) / 200.0,
-                Trim = (double)Convert.ToInt32(data[1], 16) / 128.0,
-                TrimUsed = Convert.ToInt32(data[1], 16) != 255
+                (double)Convert.ToInt32(data[0], 16) / 200.0,
+                Math.Round(((double)Convert.ToInt32(data[1], 16) - 128.0) * 100.0 / 128.0, 1),
             };
         }
 
         private static ObdStandard OBDStandard(string[] data)
         {
-            return (ObdStandard)Convert.ToInt32(data[0]);
+            var binary = HexHelper.HexStringToBinary(data[0]);
+            return (ObdStandard)Convert.ToInt32(binary.Substring(0, 8), 2);
         }
 
         private static object AuxilaryInputStatus(string[] data)
