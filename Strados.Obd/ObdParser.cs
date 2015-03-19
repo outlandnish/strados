@@ -10,7 +10,7 @@ namespace Strados.Obd
     public class ObdParser
     {
         private static ObdParser parser = new ObdParser();
-        public static object Parse(string hexData)
+        public static object Parse(string hexData, bool verbose = true)
         {
             var normalized = normalize(hexData);
 
@@ -32,7 +32,10 @@ namespace Strados.Obd
                 try
                 {
                     var result = parseFunction.Invoke(parser, new object[] { normalized.ToList().Skip(2).ToArray() });
-                    return result;
+                    if (verbose)
+                        return new { mode = mode, command = command, parameter = parseFunction.Name, value = result };
+                    else
+                        return new { parameter = parseFunction.Name, value = result };
                 }
                 catch (Exception err)
                 {
