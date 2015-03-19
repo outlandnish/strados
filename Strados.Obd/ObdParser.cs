@@ -13,7 +13,7 @@ namespace Strados.Obd
     {
         private static ObdParser parser = new ObdParser();
         private static IEnumerable<MethodInfo> methods;
-        public static object Parse(string hexData, bool verbose = true)
+        public static dynamic Parse(string hexData, bool verbose = true)
         {
             var normalized = normalize(hexData);
 
@@ -67,7 +67,7 @@ namespace Strados.Obd
                 }
                 catch (Exception err)
                 {
-                    throw new ArgumentException(string.Format("Unable to parse {0}", parseFunction.Name));
+                    throw new ArgumentException(string.Format("Unable to parse {0}", parseFunction.Name), err);
                 }
             }
             else
@@ -463,9 +463,9 @@ namespace Strados.Obd
         private static int IntegerRange(string[] data, bool second = false)
         {
             string byteOne = second ? data[2] : data[0];
-            string byteTwo = second ? data[3] : data[0];
+            string byteTwo = second ? data[3] : data[1];
 
-            return Convert.ToInt32(byteOne, 16) * 256 + Convert.ToInt32(byteTwo);
+            return Convert.ToInt32(byteOne, 16) * 256 + Convert.ToInt32(byteTwo, 16);
         }
 
         private static double Percentage(string[] data)
