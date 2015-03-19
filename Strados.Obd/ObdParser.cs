@@ -13,7 +13,7 @@ namespace Strados.Obd
     {
         private static ObdParser parser = new ObdParser();
         private static IEnumerable<MethodInfo> methods;
-        public static dynamic Parse(string hexData, bool verbose = true)
+        public static ObdResult Parse(string hexData)
         {
             var normalized = normalize(hexData);
 
@@ -60,10 +60,7 @@ namespace Strados.Obd
                 try
                 {
                     var result = parseFunction.Invoke(parser, parameters.ToArray());
-                    if (verbose)
-                        return new { mode = mode, command = command, parameter = pid.ToString(), value = result };
-                    else
-                        return new { parameter = parseFunction.Name, value = result };
+                    return new ObdResult { Mode = mode, Command = command, Name = pid.ToString(), Value = result };
                 }
                 catch (Exception err)
                 {
@@ -209,7 +206,7 @@ namespace Strados.Obd
             return (double)IntegerRange(data) / 4.0;
         }
 
-        private static double VehicleSpeed(string[] data)
+        private static int VehicleSpeed(string[] data)
         {
             return Convert.ToInt32(data[0], 16);
         }
