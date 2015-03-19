@@ -1,11 +1,11 @@
 # Strados
-Transform OBD2 data from your car into human readable data
+Core library in Strados that transforms car data (On-Board Diagnostics 2) into human readable data.
 
 ## Usage
 Using the Strados library is super simple. The ObdParser class provides a static function for passing hex data from an OBD2 sensor. Based off of the mode and command of the hex string (first two bytes), the library uses reflection to find an appropriate transformation to get the value.
 
 ```C#
-using Strados.Obd
+using Strados.Obd;
 
 string data = "41 OD FF"; 			//hex data from OBD2
 var result = ObdParser.Parse(data);
