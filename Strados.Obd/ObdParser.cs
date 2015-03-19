@@ -1,6 +1,7 @@
 ﻿using Strados.Obd.Extensions;
 using Strados.Obd.Specification;
 using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 
@@ -23,13 +24,23 @@ namespace Strados.Obd
             if (!Enum.IsDefined(typeof(ObdPid), pid))
                 throw new NotSupportedException(string.Format("Mode {0}, Command {1} is not supported", mode, command));
 
-            pid.StringValue();
-
             var methods = parser.GetType().GetRuntimeMethods();
-            var parseFunction = methods.Where(m => m.Name == pid.StringValue()).FirstOrDefault();
-            var result = parseFunction.Invoke(parser, new object[] { hexData });
+            var parseFunction = methods.Where(m => m.Name == pid.ToString()).FirstOrDefault();
 
-            return result;
+            if (parseFunction != null)
+            {
+                try
+                {
+                    var result = parseFunction.Invoke(parser, new object[] { normalized.ToList().Skip(2).ToArray() });
+                    return result;
+                }
+                catch (Exception err)
+                {
+                    throw new ArgumentException(string.Format("Unable to parse {0}", parseFunction.Name));
+                }
+            }
+            else
+                throw new NotSupportedException(string.Format("Mode {0}, Command {1} ({2}) is not supported", mode, command, pid.ToString()));
         }
 
         private static int parseMode(string data)
@@ -58,28 +69,26 @@ namespace Strados.Obd
 
             //split up the data into two character chunks if it isn't already
             if (!data.Contains(" "))
-                for (int i = 0; i < data.Length; i += 2)
+                for (int i = 2; i < data.Length; i += 2)
                 {
-                    data.Insert(i, " ");
+                    data = data.Insert(i, " ");
                     i++;
                 }
 
             return data.Split(' ');
         }
 
-        public double VehicleSpeed(string data)
+        public double VehicleSpeed(string[] data)
         {
             double speed;
-            var bits = data.Substring(6).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            speed = Convert.ToInt32(bits[0], 16);
+            speed = Convert.ToInt32(data[0], 16);
             return speed;
         }
 
-        public double EngineRPM(string data)
+        public double EngineRPM(string[] data)
         {
             double rpm;
-            var bits = data.Substring(6).Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            rpm = (double)((Convert.ToInt16(bits[0], 16) * 256) + Convert.ToInt32(bits[1], 16)) / 4.0;
+            rpm = (double)((Convert.ToInt16(data[0], 16) * 256) + Convert.ToInt32(data[1], 16)) / 4.0;
             return rpm;
         }
     }
