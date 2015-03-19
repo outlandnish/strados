@@ -34,7 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Parser.cs" />
+    <Compile Include="ObdParser.cs" />
     <Compile Include="Specification\DiagnosticTroubleCode.cs" />
     <Compile Include="Exceptions\ObdBadCommandException.cs" />
     <Compile Include="Exceptions\ObdException.cs" />

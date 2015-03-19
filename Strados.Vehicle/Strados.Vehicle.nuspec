@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <title>Strados Vehicle Library</title>
     <authors>Strados</authors>
     <owners>Strados</owners>
@@ -10,9 +10,8 @@
     <projectUrl>https://github.com/nsamala/strados</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Car service interaction layer for Strados</description>
-    <releaseNotes>Initial relase</releaseNotes>
+    <releaseNotes>Update to 0.0.3 for Strados.Obd</releaseNotes>
     <copyright>Copyright 2015</copyright>
-    <tags>
-    </tags>
+    <tags>obd2 strados automotive CAN iso car</tags>
   </metadata>
 </package>
