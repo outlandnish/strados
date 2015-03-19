@@ -102,7 +102,7 @@ namespace Strados.Vehicle
                 }
 
                 if (supported.Contains(ObdPid.MonitorStatus.StringValue()))
-                    details.Status = (VehicleStatus)Run(ObdCommands.Status);
+                    details.Status = (MonitorStatus)Run(ObdCommands.Status);
                 if (supported.Contains(ObdPid.FuelSystemStatus.StringValue()))
                 {
                     var fuelSystemStatuses = (List<FuelSystemStatus>)Run(ObdCommands.FuelSystemStatus);

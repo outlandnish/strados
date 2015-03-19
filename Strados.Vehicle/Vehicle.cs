@@ -11,7 +11,7 @@ namespace Strados.Vehicle
         public string Variant { get; set; }
         public int Year { get; set; }
         public string VIN { get; set; }
-        public VehicleStatus Status { get; set; }
+        public MonitorStatus Status { get; set; }
         public List<FuelSystemStatus> FuelSystemStatuses { get; set; }
         public List<ObdPid> PublishedPids { get; set; }
         public List<ObdPid> SupportedPids { get; set; }

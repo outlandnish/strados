@@ -87,7 +87,7 @@ namespace Strados.Vehicle.Obd
 
             return new ObdCommand((c, o) =>
             {
-                var data = HexHelper.Sanitize(o);
+                var data = HexHelper.Sanitize(new string[] { o });
 
                 //dictionary of pids and car support for each one
                 Dictionary<ObdPid, bool> pidSupport = new Dictionary<ObdPid, bool>();
@@ -100,7 +100,7 @@ namespace Strados.Vehicle.Obd
 
         public static ObdCommand Status = new ObdCommand((c, o) =>
         {
-            var data = HexHelper.Sanitize(o);
+            var data = HexHelper.Sanitize(new string[] { o });
 
             //get # of DTC codes using bits A0 - A6
             var dtcCount = Convert.ToInt32(data.Substring(1, 6), 2);
@@ -110,12 +110,12 @@ namespace Strados.Vehicle.Obd
             for (int i = 0; i < data.Length; i++)
                 tests[i] = data[i] == '1';
 
-            return new VehicleStatus() { CheckEngineLightOn = tests[7], DTCCount = dtcCount, OnBoardTests = tests };
+            return new MonitorStatus() { CheckEngineLightOn = tests[7], DTCCount = dtcCount, OnBoardTests = tests };
         }, ObdPid.MonitorStatus);
 
         public static ObdCommand FuelSystemStatus = new ObdCommand((c, o) =>
         {
-            var data = HexHelper.Sanitize(o);
+            var data = HexHelper.Sanitize(new string[] { o });
 
             List<FuelSystemStatus> FuelSystemStatuses = new List<FuelSystemStatus>();
 

@@ -45,10 +45,14 @@ namespace Strados.Obd.Helpers
             return result.ToString();
         }
 
-        public static string Sanitize(string data)
+        public static string Sanitize(string[] data)
         {
-            data = data.Replace(" ", "").Substring(4).Replace("\r", "");
-            return HexHelper.HexStringToBinary(data);
+            StringBuilder binaryString = new StringBuilder();
+
+            foreach (var d in data)
+                binaryString.Append(HexHelper.HexStringToBinary(d));
+
+            return binaryString.ToString();
         }
     }
 }

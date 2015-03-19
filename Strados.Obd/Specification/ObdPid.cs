@@ -97,7 +97,7 @@ namespace Strados.Obd.Specification
 		[StringValue("0122")]
 		FuelRailPressure_RelativeToManifoldVacuum = 34,
 		[StringValue("0123")]
-		FuelRailPressure_Diesel = 35,
+		FuelRailPressure_Diesel_GasolineDirectInject = 35,
 		[StringValue("0124")]
 		O2S1_WR_Lambda_EquivRatio = 36,
 		[StringValue("0125")]
@@ -163,7 +163,7 @@ namespace Strados.Obd.Specification
 		[StringValue("0143")]
 		AbsoluteLoadValue = 67,
 		[StringValue("0144")]
-		CommandEquivalenceRatio = 68,
+		FuelAirCommandedEquivalenceRatio = 68,
 		[StringValue("0145")]
 		RelativeThrottlePosition = 69,
 		[StringValue("0146")]
@@ -173,11 +173,11 @@ namespace Strados.Obd.Specification
 		[StringValue("0148")]
 		AbsoluteThrottlePosC = 72,
 		[StringValue("0149")]
-		AbsoluteThrottlePosD = 73,
+		AbsolutePedalPosD = 73,
 		[StringValue("014A")]
-		AbsoluteThrottlePosE = 74,
+		AbsolutePedalPosE = 74,
 		[StringValue("014B")]
-		AbsoluteThrottlePosF = 75,
+		AbsolutePedalPosF = 75,
 		[StringValue("014C")]
 		CommandedThrottleActuator = 76,
 		[StringValue("014D")]

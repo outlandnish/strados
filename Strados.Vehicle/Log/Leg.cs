@@ -16,7 +16,7 @@ namespace Strados.Vehicle.Log
         public List<Reading<double>> mafReadings { get; set; }
         public List<Reading<DiagnosticTroubleCode>> troubleCodeReadings { get; set; }
         public Vehicle Car { get; set; }
-        public Reading<VehicleStatus> Status { get; set; }
+        public Reading<MonitorStatus> Status { get; set; }
         public DateTimeOffset Start { get; set; }
         public DateTimeOffset End { get; set; }
         private bool _completed;

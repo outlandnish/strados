@@ -3,7 +3,7 @@ using Strados.Obd.Specification;
 
 namespace Strados.Obd.Specification
 {
-	public class VehicleStatus
+	public class MonitorStatus
 	{
 		public bool CheckEngineLightOn { get; set; }
 		public int DTCCount { get; set; }

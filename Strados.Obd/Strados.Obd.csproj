@@ -48,6 +48,7 @@
     <Compile Include="Specification\ObdStandard.cs" />
     <Compile Include="Specification\OnBoardTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Specification\SecondaryAirStatus.cs" />
     <Compile Include="Specification\VehicleStatus.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
