@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/nsamala/strados</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Car service interaction layer for Strados</description>
-    <releaseNotes>Update to 0.0.3 for Strados.Obd</releaseNotes>
+    <releaseNotes>Ported vehicle service. Significant refactors</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>obd2 strados automotive CAN iso car</tags>
   </metadata>

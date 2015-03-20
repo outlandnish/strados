@@ -15,7 +15,8 @@ string data = "41 0D FF"; 			//hex data from OBD2
 var result = ObdParser.Parse(data);
 
 Console.WriteLine(result.Mode);		//mode: 1
-Console.WriteLine(result.Command);  //command: 13 (speed)
+Console.WriteLine(result.Command);  //command: 13
+Console.WriteLine(result.Name);		//name: VehicleSpeed
 Console.WriteLine(result.Value);	//value: 255 (kph)
 ```
 
