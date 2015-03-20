@@ -10,22 +10,22 @@ using System.Threading.Tasks;
 
 namespace Strados.Vehicle
 {
-    public abstract class CarServiceBase : ICarService
+    public abstract class CarServiceBase : VehicleService
     {
         protected const int MAX_RESETS = 3;
         protected int resets = 0;
         protected Vehicle car;
         protected Drive drive;
 
-        public abstract object Run(ObdCommand command);
+        public abstract object Run(ObdPid command);
 
         public bool TryConnect(bool reset)
         {
             Debug.WriteLine("Trying to connect, reset = " + reset);
             if (reset)
             {
-                Run(ObdCommands.Reset);
-                Run(ObdCommands.Info);
+				Run(ObdPid.Elm327Initialize);
+                Run(ObdPid.Elm327Info);
             }
 
             Run(ObdCommands.Toggle(ObdPid.Elm327Echo, true));
@@ -101,11 +101,11 @@ namespace Strados.Vehicle
                     Debug.WriteLine(err.Message + "\n" + err.StackTrace);
                 }
 
-                if (supported.Contains(ObdPid.MonitorStatus.StringValue()))
-                    details.Status = (MonitorStatus)Run(ObdCommands.Status);
-                if (supported.Contains(ObdPid.FuelSystemStatus.StringValue()))
+                if (supported.Contains(ObdPid.MonitorStatus))
+                    details.Status = (MonitorStatus)Run(ObdPid.MonitorStatus);
+                if (supported.Contains(ObdPid.FuelSystemStatus))
                 {
-                    var fuelSystemStatuses = (List<FuelSystemStatus>)Run(ObdCommands.FuelSystemStatus);
+                    var fuelSystemStatuses = (List<FuelSystemStatus>)Run(ObdPid.FuelSystemStatus);
                     details.FuelSystemStatuses = fuelSystemStatuses;
                 }
 
@@ -144,7 +144,7 @@ namespace Strados.Vehicle
             });
         }
 
-        public IEnumerable<string> GetPublishedPids()
+        public IEnumerable<ObdPid> GetPublishedPids()
         {
             List<ObdPid> supported = new List<ObdPid>();
 
@@ -154,7 +154,7 @@ namespace Strados.Vehicle
             supported.AddRange(getPublishedPids(ObdPid.PidSupport_61_80));
             supported.AddRange(getPublishedPids(ObdPid.PidSupport_81_A0));
 
-            return supported.Select(s => s.ToString()).ToList();
+            return supported.ToList();
         }
 
         public List<ObdPid> getPublishedPids(ObdPid pidRange)
@@ -171,7 +171,7 @@ namespace Strados.Vehicle
                 return support.Keys.Where(k => support[k]).ToList();
         }
 
-        public IEnumerable<string> GetSupportedPids()
+        public IEnumerable<ObdPid> GetSupportedPids()
         {
             List<ObdPid> supported = new List<ObdPid>();
             foreach (var pid in Enum.GetNames(typeof(ObdPid)))
@@ -189,10 +189,10 @@ namespace Strados.Vehicle
                 }
             }
 
-            return supported.Select(s => s.ToString()).ToList();
+            return supported.ToList();
         }
 
-        public abstract long QueueJob(Obd.ObdCommand command);
+        public abstract long QueueJob(ObdPid command);
 
         public abstract void ExecuteQueue();
 

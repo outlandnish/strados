@@ -34,6 +34,20 @@ namespace Strados.Vehicle.Obd
 		}
 
 		/// <summary>
+		/// Runs an ObdPid command and returns the result parsed by a provided parser
+		/// </summary>
+		/// <param name="command"></param>
+		/// <param name="parser"></param>
+		/// <returns></returns>
+		public Task<object> Run(ObdPid command, Func<string, object> parser)
+		{
+			return Task.Run(async () =>
+			{
+				return parser.Invoke(await Run(command.StringValue()));
+			});
+		}
+
+		/// <summary>
 		/// Runs a string command and returns the result parsed by a provided parser
 		/// </summary>
 		/// <param name="command">Command to send to ECU</param>
