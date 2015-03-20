@@ -2,13 +2,11 @@
 using Strados.Obd.Specification;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Strados.Vehicle.Log
+namespace Strados.Vehicle.Models
 {
-    public class Leg : IDisposable
+	public class Leg : IDisposable
     {
         public List<Reading<double>> speedReadings { get; set; }
         public List<Reading<double>> rpmReadings { get; set; }

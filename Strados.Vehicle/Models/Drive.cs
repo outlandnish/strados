@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
+using Strados.Obd;
 using Strados.Obd.Specification;
-using Strados.Vehicle.Obd;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace Strados.Vehicle.Log
+namespace Strados.Vehicle.Models
 {
     public class Drive
     {
@@ -17,12 +17,12 @@ namespace Strados.Vehicle.Log
         public List<Leg> Legs { get; set; }
         public bool Completed { get; set; }
 
-        public ICarService service;
+        public IVehicleService service;
 
         double lastSpeed = double.MaxValue, lastRPM = double.MaxValue;
 
-        public List<ObdCommand> Commands = new List<ObdCommand>() {
-			ObdCommands.Speed, ObdCommands.RPM, ObdCommands.MassAirFlow(), //ObdCommands.Temperature(ObdPid.EngineCoolantTemperature),
+        public List<ObdPid> commands = new List<ObdPid>() {
+			ObdPid.VehicleSpeed, ObdPid.EngineRPM, ObdPid.MAFRate, //ObdCommands.Temperature(ObdPid.EngineCoolantTemperature),
 			//ObdCommands.Temperature(ObdPid.EngineOilTemperature), ObdCommands.FuelSystemStatus
 		};
 
@@ -32,7 +32,7 @@ namespace Strados.Vehicle.Log
             Start = DateTimeOffset.UtcNow;
         }
 
-        public Drive(ICarService service, Vehicle car)
+        public Drive(IVehicleService service, Vehicle car)
         {
             Start = DateTimeOffset.UtcNow;
             Car = car;
@@ -53,13 +53,13 @@ namespace Strados.Vehicle.Log
                 Legs.Add(Current);
                 Current.Dispose();
                 Current = new Leg(Car, DrivePath);
-                service.QueueJob(ObdCommands.PendingTroubleCodes());
+				service.Run(ObdPid.PendingTroubleCodes);
             }
 
             Current.UpdateLocation(location);
         }
 
-        public async void StateUpdate(ObdCommand command, Action legCompleted = null, Action driveCompleted = null)
+        public async void StateUpdate(ObdResult result, Action legCompleted = null, Action driveCompleted = null)
         {
             if (Car == null)
                 throw new Exception("Car details need to be set first");
@@ -74,11 +74,13 @@ namespace Strados.Vehicle.Log
                 var legPath = Current.Save();
                 Current.Dispose();
                 Current = new Leg(Car, DrivePath);
-                service.QueueJob(ObdCommands.PendingTroubleCodes());
+
+				//TODO: do something with the trouble codes
+				await service.Run(ObdPid.PendingTroubleCodes);
             }
 
-            string cmd = command.Name;
-            string value = command.Value == null ? "NODATA" : command.Value.ToString();
+            string cmd = result.Name;
+            string value = result.Value == null ? "NODATA" : result.Value.ToString();
 
             try
             {
@@ -86,7 +88,7 @@ namespace Strados.Vehicle.Log
                 {
                     if (value != "NODATA")
                     {
-                        var speed = (double)command.Value;
+                        var speed = (double)result.Value;
                         Current.UpdateSpeed(speed);
                         lastSpeed = speed;
                     }
@@ -97,7 +99,7 @@ namespace Strados.Vehicle.Log
                 {
                     if (value != "NODATA")
                     {
-                        var rpm = (double)command.Value;
+                        var rpm = (double)result.Value;
                         Current.UpdateRPM(rpm);
                         lastRPM = rpm;
                     }
@@ -118,16 +120,16 @@ namespace Strados.Vehicle.Log
                 }
                 else if (cmd.Contains(ObdPid.PendingTroubleCodes.ToString()))
                 {
-                    var codes = (int)command.Value;
+                    var codes = (int)result.Value;
                     if (codes > 0)
                     {
-                        service.QueueJob(ObdCommands.TroubleCodes(codes));
-                        service.QueueJob(ObdCommands.PendingTroubleCodes());
+						//TODO: store the trouble code results or do something with it
+						await service.Run(ObdPid.RequestTroubleCodes);
                     }
                 }
                 else if (cmd.Contains(ObdPid.RequestTroubleCodes.ToString()))
                 {
-                    var codes = (List<DiagnosticTroubleCode>)command.Value;
+                    var codes = (List<DiagnosticTroubleCode>)result.Value;
                     foreach (var code in codes)
                         Current.UpdateTroubleCode(code);
                 }

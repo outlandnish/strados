@@ -25,9 +25,10 @@ If a PID is not currently supported, you can write an extension method for the O
 `Install-Package Strados.Obd`
 
 ### Strados Vehicle Library
-[Todo] Describe why this is useful
+The Vehicle Library provides a service interface `IVehicleService` to interact with an OBD2 reader. An abstract implementation `Elm327VehicleServiceBase` for the ELM327 (and it's variants like the STN11xx chipsets) is provided. You'll need to implement a child class on your platform to interact with the vehicle service.
 
 #### Usage
+[TODO]
 
 #### Installation (from NuGet)
 `Install-Package Strados.Vehicle`

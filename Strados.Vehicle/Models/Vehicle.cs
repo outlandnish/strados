@@ -1,7 +1,7 @@
 ﻿using Strados.Obd.Specification;
 using System.Collections.Generic;
 
-namespace Strados.Vehicle
+namespace Strados.Vehicle.Models
 {
     public class Vehicle
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Strados.Vehicle.Log
+namespace Strados.Vehicle.Models
 {
     public class Reading<T>
     {
