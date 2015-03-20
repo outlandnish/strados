@@ -14,8 +14,7 @@ namespace Strados.Obd.Specification
 		Elm327Echo = -8,
 		[StringValue("ath{0}")]
 		Elm327Headers = -7,
-		[StringValue("atl{0}")]
-		Elm327LineFeed = -6,
+		[StringValue("atl{0}")]		Elm327LineFeed = -6,
 		[StringValue("atsp{0}")]
 		Elm327Protocol = -5,
 		[StringValue("atst{0}")]
@@ -283,23 +282,23 @@ namespace Strados.Obd.Specification
 		[StringValue("0187")]
 		IntakeManifoldAbsolutePressure_2 = 127,
 		[StringValue("0202")]
-		FreezeFrameTroubleCodes = 128,
+		FreezeFrameTroubleCodes = 202,
 		[StringValue("03")]
-		RequestTroubleCodes = 129,
+		RequestTroubleCodes = 300,
 		[StringValue("04")]
-		ClearTroubleCodes = 130,
+		ClearTroubleCodes = 400,
 		[StringValue("07")]
-		PendingTroubleCodes = 131,
+		PendingTroubleCodes = 700,
 		[StringValue("0A")]
-		PermanentTroubleCodes = 132,
+		PermanentTroubleCodes = 1000,
 		[StringValue("0901")]
-		VinMessageCount = 133,
+		VinMessageCount = 901,
 		[StringValue("0902")]
-		VINNumber = 134,
+		VINNumber = 902,
 		[StringValue("0903")]
-		CalibrationID = 135,
+		CalibrationID = 903,
 		[StringValue("0904")]
-		Calibration = 136,
+		Calibration = 904,
 	}
 }
 

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>$id$</id>
-    <version>0.0.11</version>
+    <version>0.0.13</version>
     <title>Strados OBD Library</title>
     <authors>Strados</authors>
     <owners>Strados</owners>
@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/nsamala/strados</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Transform OBD2 data from your car into human readable data</description>
-    <releaseNotes>Fixed bank sensor parser resolution, commanded secondary air status decoder, obd standard decoder</releaseNotes>
+    <releaseNotes>Reverting accidental push of older version</releaseNotes>
     <copyright>Copyright 2015</copyright>
     <tags>obd2 strados automotive CAN iso car</tags>
   </metadata>

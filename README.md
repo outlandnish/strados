@@ -1,7 +1,7 @@
 # Strados
 Core library in Strados that transforms car data (On-Board Diagnostics 2) into human readable data.
 
-## The Deets
+## The Details
 ### Strados OBD Library
 Contains the code that parses OBD2 based on a given OBD2 PID. A list of OBD2 PIDS can be found at [Wikipedia](http://en.wikipedia.org/wiki/OBD-II_PIDs). 
 
@@ -11,7 +11,7 @@ Using the Strados OBD library is super simple. The ObdParser class provides a st
 ```C#
 using Strados.Obd;
 
-string data = "41 OD FF"; 			//hex data from OBD2
+string data = "41 0D FF"; 			//hex data from OBD2
 var result = ObdParser.Parse(data);
 
 Console.WriteLine(result.Mode);		//mode: 1
