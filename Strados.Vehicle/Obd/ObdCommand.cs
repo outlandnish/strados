@@ -75,10 +75,6 @@ namespace Strados.Vehicle.Obd
             output = inputStream.ReadLine('>');
 			inputStream.Flush();
 
-#if DEBUG
-            //pusher.Push(new { command = command, response = output, time = DateTime.Now });
-#endif
-
             if (output.Contains("NO DATA"))
 				throw new ObdNoDataException();
             else if (output.Contains("?"))

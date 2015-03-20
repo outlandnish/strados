@@ -85,7 +85,7 @@ namespace Strados.Vehicle
 
         public Task GetVehicleDetails(bool closeOnCompletion)
         {
-            return Task.Run(async () =>
+            return Task.Run(() =>
             {
                 var details = this.car;
                 var published = GetPublishedPids();
