@@ -85,12 +85,8 @@ namespace Strados.Vehicle
 				output.WriteLine(command);
 				output.Flush();
 
-				string text = "";
 				var strm = input as MemoryStream;
 				var data = input.ReadByte();
-
-				if (text.Contains("DATA") || text.Contains("SEARCHING"))
-					text = "NO DATA";
 
 				var result = input.ReadLine('>');
 				input.Flush();
