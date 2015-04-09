@@ -19,12 +19,12 @@ namespace Strados.Obd
             var mode = parseMode(normalized[0]);
             var command = parseCommand(normalized[1]);
 
-			//use an offset to get pids from different modes (200 per mode to be safe)
-			var pid = (ObdPid)((mode - 1) * 200 + command);
+            //use an offset to get pids from different modes (200 per mode to be safe)
+            var pid = (ObdPid)((mode - 1) * 200 + command);
 
-			//special case for mode 2. freeze frame pids are parsed the same as mode 1
-			if (mode == 2)
-				pid -= 200;
+            //special case for mode 2. freeze frame pids are parsed the same as mode 1
+            if (mode == 2)
+                pid -= 200;
 
             //check if the pid value has a corresponding function
             if (!Enum.IsDefined(typeof(ObdPid), pid))
@@ -241,7 +241,7 @@ namespace Strados.Obd
         {
             var binary = HexHelper.Sanitize(data);
             bool[] sensors = new bool[8];
-            for(int i = 0; i < sensors.Length; i++)
+            for (int i = 0; i < sensors.Length; i++)
             {
                 sensors[i] = binary[i] == '1';
             }
@@ -458,20 +458,20 @@ namespace Strados.Obd
             };
         }
 
-		/*private static double AuxilaryIOSupported(string[] data)
+        /*private static double AuxilaryIOSupported(string[] data)
         {
 
         }*/
 
-		private static int VinMessageCount(string[] data)
-		{
-			throw new NotImplementedException("VIN Message Count not implemented");
-		}
+        private static int VinMessageCount(string[] data)
+        {
+            throw new NotImplementedException("VIN Message Count not implemented");
+        }
 
-		private static string VINNumber(string[] data)
-		{
-			throw new NotImplementedException("VIN Number parsing not implemented");
-		}
+        private static string VINNumber(string[] data)
+        {
+            throw new NotImplementedException("VIN Number parsing not implemented");
+        }
 
         private static int IntegerRange(string[] data, bool second = false)
         {

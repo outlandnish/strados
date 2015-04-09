@@ -53,7 +53,7 @@ namespace Strados.Vehicle.Models
                 Legs.Add(Current);
                 Current.Dispose();
                 Current = new Leg(Car, DrivePath);
-				service.Run(ObdPid.PendingTroubleCodes);
+                service.Run(ObdPid.PendingTroubleCodes);
             }
 
             Current.UpdateLocation(location);
@@ -66,17 +66,17 @@ namespace Strados.Vehicle.Models
             if (Current == null)
                 Current = new Leg(Car, DrivePath);
             else if (Current.Completed)
-            {           
+            {
                 //raise leg completed event
                 if (legCompleted != null)
                     legCompleted.Invoke();
-                
+
                 var legPath = Current.Save();
                 Current.Dispose();
                 Current = new Leg(Car, DrivePath);
 
-				//TODO: do something with the trouble codes
-				await service.Run(ObdPid.PendingTroubleCodes);
+                //TODO: do something with the trouble codes
+                await service.Run(ObdPid.PendingTroubleCodes);
             }
 
             string cmd = result.Name;
@@ -123,8 +123,8 @@ namespace Strados.Vehicle.Models
                     var codes = (int)result.Value;
                     if (codes > 0)
                     {
-						//TODO: store the trouble code results or do something with it
-						await service.Run(ObdPid.RequestTroubleCodes);
+                        //TODO: store the trouble code results or do something with it
+                        await service.Run(ObdPid.RequestTroubleCodes);
                     }
                 }
                 else if (cmd.Contains(ObdPid.RequestTroubleCodes.ToString()))

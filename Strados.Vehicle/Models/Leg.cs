@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace Strados.Vehicle.Models
 {
-	public class Leg : IDisposable
+    public class Leg : IDisposable
     {
         public List<Reading<double>> speedReadings { get; set; }
         public List<Reading<double>> rpmReadings { get; set; }
@@ -73,7 +73,7 @@ namespace Strados.Vehicle.Models
 
         public void UpdateLocation(Location location)
         {
-            var locReading = new Reading<Location>(location);            
+            var locReading = new Reading<Location>(location);
             distanceReadings.Add(locReading);
         }
 

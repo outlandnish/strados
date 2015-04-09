@@ -59,7 +59,7 @@ namespace Strados.Tests
         [Fact]
         public void TestMonitorStatus()
         {
-            
+
         }
 
         [Fact]
@@ -74,7 +74,7 @@ namespace Strados.Tests
             Assert.Equal(2, result.Count);
 
             Assert.Equal(firstExpected.Open, result[0].Open);
-            Assert.Equal(firstExpected.Status,  result[0].Status);
+            Assert.Equal(firstExpected.Status, result[0].Status);
 
             Assert.Equal(secondExpected.Open, result[1].Open);
             Assert.Equal(secondExpected.Status, result[1].Status);
