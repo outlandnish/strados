@@ -1,4 +1,4 @@
-# Strados
+# Strados [![Build Status](https://travis-ci.org/nsamala/strados.svg?branch=master)](https://travis-ci.org/nsamala/strados)
 Core library in Strados that transforms car data (On-Board Diagnostics 2) into human readable data.
 
 ## The Details
