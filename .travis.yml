@@ -1,0 +1,10 @@
+language: csharp
+solution: Strados.Obd.sln
+install:
+	- nuget restore Strados.Obd/Strados.Obd.csproj
+	- nuget restore Strados.Vehicle/Strados.Vehicle.csproj
+	- nuget restore Strados.Tests/Strados.Tests.csproj
+	- nuget install xunit.runners -Version 1.9.2 -OutputDirectory testrunner
+script:
+	- xbuild /p:Configuration=Release Strados.obd.sln
+	- mono ./testrunner/xunit.runners.1.9.2/tools/xunit.console.clr4.exe ./Strados.Tests/bin/Release/Strados.Tests.dll
