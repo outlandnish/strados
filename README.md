@@ -6,7 +6,7 @@ Core library in Strados that transforms car data (On-Board Diagnostics 2) into h
 Contains the code that parses OBD2 based on a given OBD2 PID. A list of OBD2 PIDS can be found at [Wikipedia](http://en.wikipedia.org/wiki/OBD-II_PIDs). 
 
 #### Usage
-Using the Strados OBD library is super simple. The ObdParser class provides a static function for passing hex data from an OBD2 sensor. Based off of the mode and command of the hex string (first two bytes), the library uses reflection to find an appropriate transformation to get the value.
+The ObdParser class provides a static function for passing hex data from an OBD2 sensor. Based off of the mode and command of the hex string (first two bytes), the library uses reflection to find an appropriate transformation to get the value.
 
 ```C#
 using Strados.Obd;
